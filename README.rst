@@ -7,7 +7,7 @@ This example project shows how to use the XBRL_ taxonomy query API `TQA`_ (writt
 This example project started from a Maven archetype, using the following command (see how-to-create-a-java-project-with-maven_)::
 
    mvn archetype:generate \
-     -DgroupId=eu.cdevreeze.tqajavaexamples \
+     -DgroupId=eu.cdevreeze.tqa-java-examples \
      -DartifactId=tqa-java-examples \
      -DarchetypeArtifactId=maven-archetype-quickstart \
      -DinteractiveMode=false
