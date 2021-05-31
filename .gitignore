@@ -13,6 +13,7 @@ scalastyle-config.xml
 node_modules/
 .idea/
 .bsp/
+*.iml
 
 # /project/
 /project/boot
