@@ -34,6 +34,23 @@ public class ConsoleUtil {
         // Cannot be instantiated
     }
 
+    /**
+     * Creates a TQA TaxonomyBuilder, which can be re-used for creating multiple DTSes as TQA BasicTaxonomy
+     * instances.
+     * <p>
+     * This method has as parameters a ZIP file containing the taxonomy, a useSaxon boolean and a lenient boolean.
+     * <p>
+     * The ZIP file must be closed under DTS discovery rules, starting with any of its entrypoints. Like a taxonomy
+     * package, it must at least have a META-INF/catalog.xml file mapping the original URIs to local file
+     * URIs. Taxonomy packages must also have a taxonomyPackage.xml file, but this method does not use that
+     * file, but it does require the META-INF/catalog file.
+     * <p>
+     * Boolean useSaxon determines if Saxon (tiny tree) backed DOM trees are used, or native yaidom indexed ones.
+     * The former ones are far more efficient with respect to memory usage.
+     * <p>
+     * Boolean lenient determines if strict relationship computation is done during TQA BasicTaxonomy creation
+     * from the returned TaxonomyBuilder.
+     */
     public static TaxonomyBuilder createTaxonomyBuilder(ZipFile taxonomyPackage, boolean useSaxon, boolean lenient) {
         // Exploiting parallelism, in DTS collection and relationship creation.
 
@@ -42,10 +59,14 @@ public class ConsoleUtil {
         // Easy (and fast parallel) TaxonomyBuilder creation using object TaxonomyBuilderSupport
 
         TaxonomyBuilder rawTaxonomyBuilder =
-                (useSaxon) ? TaxonomyBuilderSupport.forTaxonomyPackage(taxonomyPackage, processor) : TaxonomyBuilderSupport.forTaxonomyPackageUsingIndexedDocuments(taxonomyPackage, processor);
+                (useSaxon) ?
+                        TaxonomyBuilderSupport.forTaxonomyPackage(taxonomyPackage, processor) :
+                        TaxonomyBuilderSupport.forTaxonomyPackageUsingIndexedDocuments(taxonomyPackage, processor);
 
         TaxonomyBuilder taxonomyBuilder =
-                (lenient) ? rawTaxonomyBuilder.withRelationshipFactory(DefaultParallelRelationshipFactory.LenientInstance()) : rawTaxonomyBuilder;
+                (lenient) ?
+                        rawTaxonomyBuilder.withRelationshipFactory(DefaultParallelRelationshipFactory.LenientInstance()) :
+                        rawTaxonomyBuilder;
 
         return taxonomyBuilder;
     }

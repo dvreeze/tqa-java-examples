@@ -27,7 +27,10 @@ Also, from the output of command "mvn dependency:tree" we see the Scala major ve
 underscore. That's the case for TQA, yaidom etc. It is very important to never mix multiple Scala major versions (2.12, 2.13, 3 etc.)
 in a dependency tree involving Scala dependencies. (The only exception is where the Scala library itself depends on another one.)
 
-As a last remark, make sure that Java 8+ is used. Scala 3 (as well as 2.12. and 2.13) requires it.
+As a last Scala-related remark, make sure that Java 8+ is used. Scala 3 (as well as 2.12. and 2.13) requires it.
+
+The program to run is "ShowTaxonomyMemoryFootprint". See the documenting comments there for more
+information about how to run it, and what input it expects.
 
 .. _XBRL: https://www.xbrl.org/
 .. _`TQA`: https://github.com/dvreeze/tqa
